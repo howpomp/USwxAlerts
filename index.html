@@ -696,7 +696,7 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //  CONFIG
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const NWS_ALERTS_URL = 'https://api.weather.gov/alerts/active?status=actual&limit=500';
+const NWS_ALERTS_URL = 'https://api.weather.gov/alerts/active?status=actual';
 const REFRESH_MS = 120_000; // 2 min auto refresh
 let allAlerts = [];
 let allLSRs = [];
@@ -742,7 +742,7 @@ function getSeverityPriority(cls) {
 async function fetchAlerts() {
   setStatus('loading');
   try {
-    const res = await fetch(NWS_ALERTS_URL, { headers: { 'User-Agent': '(WeatherAlertsApp, contact@example.com)' } });
+    const res = await fetch(NWS_ALERTS_URL, { headers: { 'User-Agent': 'USWxAlerts/1.0 (howpomp.github.io/USWxAlerts)', 'Accept': 'application/geo+json' } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     processAlerts(data.features || []);
